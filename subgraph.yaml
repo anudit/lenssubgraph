@@ -1,0 +1,24 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: LensHub
+    network: mumbai
+    source:
+      address: "0xF6BF84E5df229029C9D36dC7ABaCDBE9c0bd7b4F"
+      abi: LensHub
+      startBlock: 24665615
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: LensHub
+          file: ./abis/LensHub.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/mapping.ts

@@ -1,0 +1,10 @@
+type Profile @entity {
+  id: ID!
+  profileId: BigInt! # uint256
+  pubCount: BigInt! # uint256
+  followModule: Bytes! # address
+  followNFT: Bytes!  # address
+  handle: String! # string
+  imageURI: String! # string
+  followNFTURI: String! # string
+}
