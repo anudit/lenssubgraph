@@ -1,6 +1,6 @@
 # Lens Protcol Subgraph
 
-Build completed: `QmcDcCZFv2SSEwsW82CfzLvDwiLEmQj7AnPhY9N7GxZLcR`
+Build completed: `QmWMyewHGhMYiDEDigrPJvSbZHziitfakKufZDBUwbdQYV`
 
 Deployed to https://thegraph.com/explorer/subgraph/anudit/lens-protocol
 
@@ -12,11 +12,19 @@ Subscriptions (WS): wss://api.thegraph.com/subgraphs/name/anudit/lens-protocol
 Example Query
 ```graphql
 {
-  profiles(first: 5) {
+  profiles(first: 10) {
     id
     profileId
     pubCount
+    owner
     handle
+  }
+  socialGraphs(first: 10){
+    id
+    following{
+      id
+      handle
+    }
   }
 }
 ```

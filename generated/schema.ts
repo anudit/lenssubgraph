@@ -16,6 +16,8 @@ export class Profile extends Entity {
     super();
     this.set("id", Value.fromString(id));
 
+    this.set("creator", Value.fromBytes(Bytes.empty()));
+    this.set("owner", Value.fromBytes(Bytes.empty()));
     this.set("profileId", Value.fromBigInt(BigInt.zero()));
     this.set("pubCount", Value.fromBigInt(BigInt.zero()));
     this.set("followModule", Value.fromBytes(Bytes.empty()));
@@ -23,6 +25,8 @@ export class Profile extends Entity {
     this.set("handle", Value.fromString(""));
     this.set("imageURI", Value.fromString(""));
     this.set("followNFTURI", Value.fromString(""));
+    this.set("createdOn", Value.fromBigInt(BigInt.zero()));
+    this.set("followModuleReturnData", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -49,6 +53,24 @@ export class Profile extends Entity {
 
   set id(value: string) {
     this.set("id", Value.fromString(value));
+  }
+
+  get creator(): Bytes {
+    let value = this.get("creator");
+    return value!.toBytes();
+  }
+
+  set creator(value: Bytes) {
+    this.set("creator", Value.fromBytes(value));
+  }
+
+  get owner(): Bytes {
+    let value = this.get("owner");
+    return value!.toBytes();
+  }
+
+  set owner(value: Bytes) {
+    this.set("owner", Value.fromBytes(value));
   }
 
   get profileId(): BigInt {
@@ -112,5 +134,67 @@ export class Profile extends Entity {
 
   set followNFTURI(value: string) {
     this.set("followNFTURI", Value.fromString(value));
+  }
+
+  get createdOn(): BigInt {
+    let value = this.get("createdOn");
+    return value!.toBigInt();
+  }
+
+  set createdOn(value: BigInt) {
+    this.set("createdOn", Value.fromBigInt(value));
+  }
+
+  get followModuleReturnData(): Bytes {
+    let value = this.get("followModuleReturnData");
+    return value!.toBytes();
+  }
+
+  set followModuleReturnData(value: Bytes) {
+    this.set("followModuleReturnData", Value.fromBytes(value));
+  }
+}
+
+export class SocialGraph extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("following", Value.fromStringArray(new Array(0)));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save SocialGraph entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save SocialGraph entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("SocialGraph", id.toString(), this);
+    }
+  }
+
+  static load(id: string): SocialGraph | null {
+    return changetype<SocialGraph | null>(store.get("SocialGraph", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get following(): Array<string> {
+    let value = this.get("following");
+    return value!.toStringArray();
+  }
+
+  set following(value: Array<string>) {
+    this.set("following", Value.fromStringArray(value));
   }
 }

@@ -1,5 +1,7 @@
 type Profile @entity {
-  id: ID!
+  id: ID! # profileId uint256
+  creator: Bytes! # address
+  owner: Bytes! # address
   profileId: BigInt! # uint256
   pubCount: BigInt! # uint256
   followModule: Bytes! # address
@@ -7,4 +9,11 @@ type Profile @entity {
   handle: String! # string
   imageURI: String! # string
   followNFTURI: String! # string
+  createdOn: BigInt! # uint256
+  followModuleReturnData: Bytes!
+}
+
+type SocialGraph @entity {
+  id: ID! # address
+  following: [Profile!]!
 }

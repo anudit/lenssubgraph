@@ -14,11 +14,14 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - Transfer
+        - Followed
+        - ProfileCreated
       abis:
         - name: LensHub
           file: ./abis/LensHub.json
       eventHandlers:
-        - event: Transfer(indexed address,indexed address,indexed uint256)
-          handler: handleTransfer
+        - event: Followed(indexed address,uint256[],uint256)
+          handler: handleFollowed
+        - event: ProfileCreated(indexed uint256,indexed address,indexed address,string,string,address,bytes,string,uint256)
+          handler: handleProfileCreated
       file: ./src/mapping.ts
