@@ -63,11 +63,12 @@ export function handleFollowed(event: Followed): void {
 
 export function handlePostCreated(event: PostCreated): void {
 
-  let entity = Post.load(event.params.pubId.toString());
+  let entity = Post.load(event.transaction.hash.toHexString());
 
   if (!entity) {
-    let entity = new Post(event.params.pubId.toString());
+    let entity = new Post(event.transaction.hash.toHexString());
 
+    entity.pubId = event.params.pubId;
     entity.profileId = event.params.profileId.toString();
     entity.contentURI = event.params.contentURI;
     entity.collectModule = event.params.collectModule;

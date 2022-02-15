@@ -205,6 +205,7 @@ export class Post extends Entity {
     this.set("id", Value.fromString(id));
 
     this.set("profileId", Value.fromString(""));
+    this.set("pubId", Value.fromBigInt(BigInt.zero()));
     this.set("contentURI", Value.fromString(""));
     this.set("collectModule", Value.fromBytes(Bytes.empty()));
     this.set("collectModuleReturnData", Value.fromBytes(Bytes.empty()));
@@ -246,6 +247,15 @@ export class Post extends Entity {
 
   set profileId(value: string) {
     this.set("profileId", Value.fromString(value));
+  }
+
+  get pubId(): BigInt {
+    let value = this.get("pubId");
+    return value!.toBigInt();
+  }
+
+  set pubId(value: BigInt) {
+    this.set("pubId", Value.fromBigInt(value));
   }
 
   get contentURI(): string {

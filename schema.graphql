@@ -21,6 +21,7 @@ type SocialGraph @entity {
 type Post @entity {
   id: ID! # uint256
   profileId: Profile!
+  pubId: BigInt! # uint256
   contentURI: String! # string
   collectModule: Bytes! # address
   collectModuleReturnData: Bytes! # bytes

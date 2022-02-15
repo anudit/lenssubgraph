@@ -1,6 +1,6 @@
 # Lens Protcol Subgraph
 
-Build completed: `QmZWbhcWU9GjpuZb3EgvwyD9fxYJzCDEEC19tLJrSKTS52`
+Build completed: `QmY2Zzm13zWnK6CbYDMokgnZ1CB5zqiBkWtiw5AZ6aRXQX`
 
 Deployed to https://thegraph.com/explorer/subgraph/anudit/lens-protocol
 
