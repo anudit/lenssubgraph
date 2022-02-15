@@ -1,9 +1,11 @@
+import { BigInt } from "@graphprotocol/graph-ts";
 import {
   LensHub,
   Followed,
+  PostCreated,
   ProfileCreated
 } from "../generated/LensHub/LensHub"
-import { Profile, SocialGraph } from "../generated/schema"
+import { Post, Profile, SocialGraph } from "../generated/schema"
 
 export function handleProfileCreated(event: ProfileCreated): void {
 
@@ -56,5 +58,25 @@ export function handleFollowed(event: Followed): void {
     entity.following = newFollowingList;
     entity.save();
   };
+
+};
+
+export function handlePostCreated(event: PostCreated): void {
+
+  let entity = Post.load(event.params.pubId.toString());
+
+  if (!entity) {
+    let entity = new Post(event.params.pubId.toString());
+
+    entity.profileId = event.params.profileId.toString();
+    entity.contentURI = event.params.contentURI;
+    entity.collectModule = event.params.collectModule;
+    entity.collectModuleReturnData = event.params.collectModuleReturnData;
+    entity.referenceModule = event.params.referenceModule;
+    entity.referenceModuleReturnData = event.params.referenceModuleReturnData;
+    entity.timestamp = event.params.timestamp;
+
+    entity.save();
+  }
 
 };

@@ -17,3 +17,14 @@ type SocialGraph @entity {
   id: ID! # address
   following: [Profile!]!
 }
+
+type Post @entity {
+  id: ID! # uint256
+  profileId: Profile!
+  contentURI: String! # string
+  collectModule: Bytes! # address
+  collectModuleReturnData: Bytes! # bytes
+  referenceModule: Bytes! # address
+  referenceModuleReturnData: Bytes! # bytes
+  timestamp: BigInt! # uint256
+}

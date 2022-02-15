@@ -1,12 +1,11 @@
 # Lens Protcol Subgraph
 
-Build completed: `QmWMyewHGhMYiDEDigrPJvSbZHziitfakKufZDBUwbdQYV`
+Build completed: `QmZWbhcWU9GjpuZb3EgvwyD9fxYJzCDEEC19tLJrSKTS52`
 
 Deployed to https://thegraph.com/explorer/subgraph/anudit/lens-protocol
 
 Subgraph endpoints:
 Queries (HTTP):     https://api.thegraph.com/subgraphs/name/anudit/lens-protocol
-
 Subscriptions (WS): wss://api.thegraph.com/subgraphs/name/anudit/lens-protocol
 
 Example Query

@@ -198,3 +198,107 @@ export class SocialGraph extends Entity {
     this.set("following", Value.fromStringArray(value));
   }
 }
+
+export class Post extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("profileId", Value.fromString(""));
+    this.set("contentURI", Value.fromString(""));
+    this.set("collectModule", Value.fromBytes(Bytes.empty()));
+    this.set("collectModuleReturnData", Value.fromBytes(Bytes.empty()));
+    this.set("referenceModule", Value.fromBytes(Bytes.empty()));
+    this.set("referenceModuleReturnData", Value.fromBytes(Bytes.empty()));
+    this.set("timestamp", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Post entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save Post entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("Post", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Post | null {
+    return changetype<Post | null>(store.get("Post", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get profileId(): string {
+    let value = this.get("profileId");
+    return value!.toString();
+  }
+
+  set profileId(value: string) {
+    this.set("profileId", Value.fromString(value));
+  }
+
+  get contentURI(): string {
+    let value = this.get("contentURI");
+    return value!.toString();
+  }
+
+  set contentURI(value: string) {
+    this.set("contentURI", Value.fromString(value));
+  }
+
+  get collectModule(): Bytes {
+    let value = this.get("collectModule");
+    return value!.toBytes();
+  }
+
+  set collectModule(value: Bytes) {
+    this.set("collectModule", Value.fromBytes(value));
+  }
+
+  get collectModuleReturnData(): Bytes {
+    let value = this.get("collectModuleReturnData");
+    return value!.toBytes();
+  }
+
+  set collectModuleReturnData(value: Bytes) {
+    this.set("collectModuleReturnData", Value.fromBytes(value));
+  }
+
+  get referenceModule(): Bytes {
+    let value = this.get("referenceModule");
+    return value!.toBytes();
+  }
+
+  set referenceModule(value: Bytes) {
+    this.set("referenceModule", Value.fromBytes(value));
+  }
+
+  get referenceModuleReturnData(): Bytes {
+    let value = this.get("referenceModuleReturnData");
+    return value!.toBytes();
+  }
+
+  set referenceModuleReturnData(value: Bytes) {
+    this.set("referenceModuleReturnData", Value.fromBytes(value));
+  }
+
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
+    return value!.toBigInt();
+  }
+
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
+  }
+}
