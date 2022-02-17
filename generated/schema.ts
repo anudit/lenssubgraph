@@ -20,13 +20,14 @@ export class Profile extends Entity {
     this.set("owner", Value.fromBytes(Bytes.empty()));
     this.set("profileId", Value.fromBigInt(BigInt.zero()));
     this.set("pubCount", Value.fromBigInt(BigInt.zero()));
-    this.set("followModule", Value.fromBytes(Bytes.empty()));
     this.set("followNFT", Value.fromBytes(Bytes.empty()));
     this.set("handle", Value.fromString(""));
     this.set("imageURI", Value.fromString(""));
     this.set("followNFTURI", Value.fromString(""));
     this.set("createdOn", Value.fromBigInt(BigInt.zero()));
+    this.set("followModule", Value.fromBytes(Bytes.empty()));
     this.set("followModuleReturnData", Value.fromBytes(Bytes.empty()));
+    this.set("dispatcher", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -91,15 +92,6 @@ export class Profile extends Entity {
     this.set("pubCount", Value.fromBigInt(value));
   }
 
-  get followModule(): Bytes {
-    let value = this.get("followModule");
-    return value!.toBytes();
-  }
-
-  set followModule(value: Bytes) {
-    this.set("followModule", Value.fromBytes(value));
-  }
-
   get followNFT(): Bytes {
     let value = this.get("followNFT");
     return value!.toBytes();
@@ -145,6 +137,15 @@ export class Profile extends Entity {
     this.set("createdOn", Value.fromBigInt(value));
   }
 
+  get followModule(): Bytes {
+    let value = this.get("followModule");
+    return value!.toBytes();
+  }
+
+  set followModule(value: Bytes) {
+    this.set("followModule", Value.fromBytes(value));
+  }
+
   get followModuleReturnData(): Bytes {
     let value = this.get("followModuleReturnData");
     return value!.toBytes();
@@ -152,6 +153,253 @@ export class Profile extends Entity {
 
   set followModuleReturnData(value: Bytes) {
     this.set("followModuleReturnData", Value.fromBytes(value));
+  }
+
+  get dispatcher(): Bytes {
+    let value = this.get("dispatcher");
+    return value!.toBytes();
+  }
+
+  set dispatcher(value: Bytes) {
+    this.set("dispatcher", Value.fromBytes(value));
+  }
+}
+
+export class Comment extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("profileId", Value.fromBigInt(BigInt.zero()));
+    this.set("pubId", Value.fromBigInt(BigInt.zero()));
+    this.set("contentURI", Value.fromString(""));
+    this.set("profileIdPointed", Value.fromBigInt(BigInt.zero()));
+    this.set("pubIdPointed", Value.fromBigInt(BigInt.zero()));
+    this.set("collectModule", Value.fromBytes(Bytes.empty()));
+    this.set("collectModuleReturnData", Value.fromBytes(Bytes.empty()));
+    this.set("referenceModule", Value.fromBytes(Bytes.empty()));
+    this.set("referenceModuleReturnData", Value.fromBytes(Bytes.empty()));
+    this.set("timestamp", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Comment entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save Comment entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("Comment", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Comment | null {
+    return changetype<Comment | null>(store.get("Comment", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get profileId(): BigInt {
+    let value = this.get("profileId");
+    return value!.toBigInt();
+  }
+
+  set profileId(value: BigInt) {
+    this.set("profileId", Value.fromBigInt(value));
+  }
+
+  get pubId(): BigInt {
+    let value = this.get("pubId");
+    return value!.toBigInt();
+  }
+
+  set pubId(value: BigInt) {
+    this.set("pubId", Value.fromBigInt(value));
+  }
+
+  get contentURI(): string {
+    let value = this.get("contentURI");
+    return value!.toString();
+  }
+
+  set contentURI(value: string) {
+    this.set("contentURI", Value.fromString(value));
+  }
+
+  get profileIdPointed(): BigInt {
+    let value = this.get("profileIdPointed");
+    return value!.toBigInt();
+  }
+
+  set profileIdPointed(value: BigInt) {
+    this.set("profileIdPointed", Value.fromBigInt(value));
+  }
+
+  get pubIdPointed(): BigInt {
+    let value = this.get("pubIdPointed");
+    return value!.toBigInt();
+  }
+
+  set pubIdPointed(value: BigInt) {
+    this.set("pubIdPointed", Value.fromBigInt(value));
+  }
+
+  get collectModule(): Bytes {
+    let value = this.get("collectModule");
+    return value!.toBytes();
+  }
+
+  set collectModule(value: Bytes) {
+    this.set("collectModule", Value.fromBytes(value));
+  }
+
+  get collectModuleReturnData(): Bytes {
+    let value = this.get("collectModuleReturnData");
+    return value!.toBytes();
+  }
+
+  set collectModuleReturnData(value: Bytes) {
+    this.set("collectModuleReturnData", Value.fromBytes(value));
+  }
+
+  get referenceModule(): Bytes {
+    let value = this.get("referenceModule");
+    return value!.toBytes();
+  }
+
+  set referenceModule(value: Bytes) {
+    this.set("referenceModule", Value.fromBytes(value));
+  }
+
+  get referenceModuleReturnData(): Bytes {
+    let value = this.get("referenceModuleReturnData");
+    return value!.toBytes();
+  }
+
+  set referenceModuleReturnData(value: Bytes) {
+    this.set("referenceModuleReturnData", Value.fromBytes(value));
+  }
+
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
+    return value!.toBigInt();
+  }
+
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
+  }
+}
+
+export class Mirror extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("profileId", Value.fromBigInt(BigInt.zero()));
+    this.set("pubId", Value.fromBigInt(BigInt.zero()));
+    this.set("profileIdPointed", Value.fromBigInt(BigInt.zero()));
+    this.set("pubIdPointed", Value.fromBigInt(BigInt.zero()));
+    this.set("referenceModule", Value.fromBytes(Bytes.empty()));
+    this.set("referenceModuleReturnData", Value.fromBytes(Bytes.empty()));
+    this.set("timestamp", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Mirror entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save Mirror entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("Mirror", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Mirror | null {
+    return changetype<Mirror | null>(store.get("Mirror", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get profileId(): BigInt {
+    let value = this.get("profileId");
+    return value!.toBigInt();
+  }
+
+  set profileId(value: BigInt) {
+    this.set("profileId", Value.fromBigInt(value));
+  }
+
+  get pubId(): BigInt {
+    let value = this.get("pubId");
+    return value!.toBigInt();
+  }
+
+  set pubId(value: BigInt) {
+    this.set("pubId", Value.fromBigInt(value));
+  }
+
+  get profileIdPointed(): BigInt {
+    let value = this.get("profileIdPointed");
+    return value!.toBigInt();
+  }
+
+  set profileIdPointed(value: BigInt) {
+    this.set("profileIdPointed", Value.fromBigInt(value));
+  }
+
+  get pubIdPointed(): BigInt {
+    let value = this.get("pubIdPointed");
+    return value!.toBigInt();
+  }
+
+  set pubIdPointed(value: BigInt) {
+    this.set("pubIdPointed", Value.fromBigInt(value));
+  }
+
+  get referenceModule(): Bytes {
+    let value = this.get("referenceModule");
+    return value!.toBytes();
+  }
+
+  set referenceModule(value: Bytes) {
+    this.set("referenceModule", Value.fromBytes(value));
+  }
+
+  get referenceModuleReturnData(): Bytes {
+    let value = this.get("referenceModuleReturnData");
+    return value!.toBytes();
+  }
+
+  set referenceModuleReturnData(value: Bytes) {
+    this.set("referenceModuleReturnData", Value.fromBytes(value));
+  }
+
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
+    return value!.toBigInt();
+  }
+
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
   }
 }
 
@@ -196,6 +444,242 @@ export class SocialGraph extends Entity {
 
   set following(value: Array<string>) {
     this.set("following", Value.fromStringArray(value));
+  }
+}
+
+export class ProfileCreatorWhitelist extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("isWhitelisted", Value.fromBoolean(false));
+    this.set("lastUpdated", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(
+      id != null,
+      "Cannot save ProfileCreatorWhitelist entity without an ID"
+    );
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save ProfileCreatorWhitelist entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("ProfileCreatorWhitelist", id.toString(), this);
+    }
+  }
+
+  static load(id: string): ProfileCreatorWhitelist | null {
+    return changetype<ProfileCreatorWhitelist | null>(
+      store.get("ProfileCreatorWhitelist", id)
+    );
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get isWhitelisted(): boolean {
+    let value = this.get("isWhitelisted");
+    return value!.toBoolean();
+  }
+
+  set isWhitelisted(value: boolean) {
+    this.set("isWhitelisted", Value.fromBoolean(value));
+  }
+
+  get lastUpdated(): BigInt {
+    let value = this.get("lastUpdated");
+    return value!.toBigInt();
+  }
+
+  set lastUpdated(value: BigInt) {
+    this.set("lastUpdated", Value.fromBigInt(value));
+  }
+}
+
+export class FollowModuleWhitelist extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("isWhitelisted", Value.fromBoolean(false));
+    this.set("lastUpdated", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(
+      id != null,
+      "Cannot save FollowModuleWhitelist entity without an ID"
+    );
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save FollowModuleWhitelist entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("FollowModuleWhitelist", id.toString(), this);
+    }
+  }
+
+  static load(id: string): FollowModuleWhitelist | null {
+    return changetype<FollowModuleWhitelist | null>(
+      store.get("FollowModuleWhitelist", id)
+    );
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get isWhitelisted(): boolean {
+    let value = this.get("isWhitelisted");
+    return value!.toBoolean();
+  }
+
+  set isWhitelisted(value: boolean) {
+    this.set("isWhitelisted", Value.fromBoolean(value));
+  }
+
+  get lastUpdated(): BigInt {
+    let value = this.get("lastUpdated");
+    return value!.toBigInt();
+  }
+
+  set lastUpdated(value: BigInt) {
+    this.set("lastUpdated", Value.fromBigInt(value));
+  }
+}
+
+export class ReferenceModuleWhitelist extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("isWhitelisted", Value.fromBoolean(false));
+    this.set("lastUpdated", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(
+      id != null,
+      "Cannot save ReferenceModuleWhitelist entity without an ID"
+    );
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save ReferenceModuleWhitelist entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("ReferenceModuleWhitelist", id.toString(), this);
+    }
+  }
+
+  static load(id: string): ReferenceModuleWhitelist | null {
+    return changetype<ReferenceModuleWhitelist | null>(
+      store.get("ReferenceModuleWhitelist", id)
+    );
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get isWhitelisted(): boolean {
+    let value = this.get("isWhitelisted");
+    return value!.toBoolean();
+  }
+
+  set isWhitelisted(value: boolean) {
+    this.set("isWhitelisted", Value.fromBoolean(value));
+  }
+
+  get lastUpdated(): BigInt {
+    let value = this.get("lastUpdated");
+    return value!.toBigInt();
+  }
+
+  set lastUpdated(value: BigInt) {
+    this.set("lastUpdated", Value.fromBigInt(value));
+  }
+}
+
+export class CollectModuleWhitelist extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("isWhitelisted", Value.fromBoolean(false));
+    this.set("lastUpdated", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(
+      id != null,
+      "Cannot save CollectModuleWhitelist entity without an ID"
+    );
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save CollectModuleWhitelist entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("CollectModuleWhitelist", id.toString(), this);
+    }
+  }
+
+  static load(id: string): CollectModuleWhitelist | null {
+    return changetype<CollectModuleWhitelist | null>(
+      store.get("CollectModuleWhitelist", id)
+    );
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get isWhitelisted(): boolean {
+    let value = this.get("isWhitelisted");
+    return value!.toBoolean();
+  }
+
+  set isWhitelisted(value: boolean) {
+    this.set("isWhitelisted", Value.fromBoolean(value));
+  }
+
+  get lastUpdated(): BigInt {
+    let value = this.get("lastUpdated");
+    return value!.toBigInt();
+  }
+
+  set lastUpdated(value: BigInt) {
+    this.set("lastUpdated", Value.fromBigInt(value));
   }
 }
 

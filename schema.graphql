@@ -4,18 +4,68 @@ type Profile @entity {
   owner: Bytes! # address
   profileId: BigInt! # uint256
   pubCount: BigInt! # uint256
-  followModule: Bytes! # address
   followNFT: Bytes!  # address
   handle: String! # string
   imageURI: String! # string
   followNFTURI: String! # string
   createdOn: BigInt! # uint256
+  followModule: Bytes! # address
   followModuleReturnData: Bytes!
+  dispatcher: Bytes!
+}
+
+type Comment @entity {
+  id: ID! # txn
+  profileId: BigInt! # uint256
+  pubId: BigInt! # uint256
+  contentURI: String! # string
+  profileIdPointed: BigInt!
+  pubIdPointed: BigInt!
+  collectModule: Bytes!
+  collectModuleReturnData: Bytes!
+  referenceModule: Bytes!
+  referenceModuleReturnData: Bytes!
+  timestamp: BigInt!
+}
+
+type Mirror @entity {
+  id: ID! # txn
+  profileId: BigInt!
+  pubId: BigInt!
+  profileIdPointed: BigInt!
+  pubIdPointed: BigInt!
+  referenceModule: Bytes!
+  referenceModuleReturnData: Bytes!
+  timestamp: BigInt!
 }
 
 type SocialGraph @entity {
   id: ID! # address
   following: [Profile!]!
+}
+
+type ProfileCreatorWhitelist @entity {
+  id: ID! # address
+  isWhitelisted: Boolean!
+  lastUpdated: BigInt!
+}
+
+type FollowModuleWhitelist @entity {
+  id: ID! # address
+  isWhitelisted: Boolean!
+  lastUpdated: BigInt!
+}
+
+type ReferenceModuleWhitelist @entity {
+  id: ID! # address
+  isWhitelisted: Boolean!
+  lastUpdated: BigInt!
+}
+
+type CollectModuleWhitelist @entity {
+  id: ID! # address
+  isWhitelisted: Boolean!
+  lastUpdated: BigInt!
 }
 
 type Post @entity {

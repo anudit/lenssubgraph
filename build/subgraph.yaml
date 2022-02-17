@@ -17,6 +17,16 @@ dataSources:
         - Followed
         - ProfileCreated
         - PostCreated
+        - ProfileCreatorWhitelisted
+        - FollowModuleWhitelisted
+        - ReferenceModuleWhitelisted
+        - CollectModuleWhitelisted
+        - DispatcherSet
+        - ProfileImageURISet
+        - FollowNFTURISet
+        - FollowModuleSet
+        - MirrorCreated
+        - CommentCreated
       abis:
         - name: LensHub
           file: LensHub/abis/LensHub.json
@@ -26,7 +36,29 @@ dataSources:
         - event: ProfileCreated(indexed uint256,indexed address,indexed
             address,string,string,address,bytes,string,uint256)
           handler: handleProfileCreated
+        - event: CommentCreated(indexed uint256,indexed
+            uint256,string,uint256,uint256,address,bytes,address,bytes,uint256)
+          handler: handleCommentCreated
         - event: PostCreated(indexed uint256,indexed
             uint256,string,address,bytes,address,bytes,uint256)
           handler: handlePostCreated
+        - event: ProfileCreatorWhitelisted(indexed address,indexed bool,uint256)
+          handler: handleProfileCreatorWhitelisted
+        - event: FollowModuleWhitelisted(indexed address,indexed bool,uint256)
+          handler: handleFollowModuleWhitelisted
+        - event: ReferenceModuleWhitelisted(indexed address,indexed bool,uint256)
+          handler: handleReferenceModuleWhitelisted
+        - event: CollectModuleWhitelisted(indexed address,indexed bool,uint256)
+          handler: handleCollectModuleWhitelisted
+        - event: DispatcherSet(indexed uint256,indexed address,uint256)
+          handler: handleDispatcherSet
+        - event: ProfileImageURISet(indexed uint256,string,uint256)
+          handler: handleProfileImageURISet
+        - event: FollowNFTURISet(indexed uint256,string,uint256)
+          handler: handleFollowNFTURISet
+        - event: FollowModuleSet(indexed uint256,address,bytes,uint256)
+          handler: handleFollowModuleSet
+        - event: MirrorCreated(indexed uint256,indexed
+            uint256,uint256,uint256,address,bytes,uint256)
+          handler: handleMirrorCreated
       file: LensHub/LensHub.wasm
