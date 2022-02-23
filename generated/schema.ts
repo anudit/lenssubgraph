@@ -180,6 +180,7 @@ export class Comment extends Entity {
     this.set("referenceModule", Value.fromBytes(Bytes.empty()));
     this.set("referenceModuleReturnData", Value.fromBytes(Bytes.empty()));
     this.set("timestamp", Value.fromBigInt(BigInt.zero()));
+    this.set("postPointed", Value.fromString(""));
   }
 
   save(): void {
@@ -296,6 +297,15 @@ export class Comment extends Entity {
 
   set timestamp(value: BigInt) {
     this.set("timestamp", Value.fromBigInt(value));
+  }
+
+  get postPointed(): string {
+    let value = this.get("postPointed");
+    return value!.toString();
+  }
+
+  set postPointed(value: string) {
+    this.set("postPointed", Value.fromString(value));
   }
 }
 
@@ -794,5 +804,22 @@ export class Post extends Entity {
 
   set timestamp(value: BigInt) {
     this.set("timestamp", Value.fromBigInt(value));
+  }
+
+  get comments(): Array<string> | null {
+    let value = this.get("comments");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set comments(value: Array<string> | null) {
+    if (!value) {
+      this.unset("comments");
+    } else {
+      this.set("comments", Value.fromStringArray(<Array<string>>value));
+    }
   }
 }

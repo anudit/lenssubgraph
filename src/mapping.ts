@@ -45,10 +45,10 @@ export function handleProfileCreated(event: ProfileCreated): void {
 
 export function handleCommentCreated(event: CommentCreated): void {
 
-  let entity = Comment.load(event.transaction.hash.toString());
+  let entity = Comment.load(event.transaction.hash.toHexString());
 
   if (!entity) {
-    entity = new Comment(event.transaction.hash.toString());
+    entity = new Comment(event.transaction.hash.toHexString());
 
     entity.profileId = event.params.profileId;
     entity.pubId = event.params.pubId;
@@ -60,6 +60,10 @@ export function handleCommentCreated(event: CommentCreated): void {
     entity.referenceModule = event.params.referenceModule;
     entity.referenceModuleReturnData = event.params.referenceModuleReturnData;
     entity.timestamp = event.params.timestamp;
+
+    // link comment to pointed publication
+    let postID = event.params.profileIdPointed.toString().concat(event.params.pubIdPointed.toString())
+    entity.postPointed = postID
     entity.save();
   }
 
@@ -113,10 +117,11 @@ export function handleFollowed(event: Followed): void {
 
 export function handlePostCreated(event: PostCreated): void {
 
-  let entity = Post.load(event.transaction.hash.toHexString());
+  let postID = event.params.profileId.toString().concat(event.params.pubId.toString())
+  let entity = Post.load(postID);
 
   if (!entity) {
-    let entity = new Post(event.transaction.hash.toHexString());
+    let entity = new Post(postID);
 
     entity.pubId = event.params.pubId;
     entity.profileId = event.params.profileId.toString();
