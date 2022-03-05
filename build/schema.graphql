@@ -26,6 +26,7 @@ type Comment @entity {
   referenceModule: Bytes!
   referenceModuleReturnData: Bytes!
   timestamp: BigInt!
+  postPointed: Post!
 }
 
 type Mirror @entity {
@@ -69,7 +70,7 @@ type CollectModuleWhitelist @entity {
 }
 
 type Post @entity {
-  id: ID! # uint256
+  id: ID! # string
   profileId: Profile!
   pubId: BigInt! # uint256
   contentURI: String! # string
@@ -78,4 +79,6 @@ type Post @entity {
   referenceModule: Bytes! # address
   referenceModuleReturnData: Bytes! # bytes
   timestamp: BigInt! # uint256
-}
+  comments: [Comment!] @derivedFrom(field: "postPointed")
+  }
+  
