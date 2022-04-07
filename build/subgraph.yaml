@@ -6,9 +6,9 @@ dataSources:
     name: LensHub
     network: mumbai
     source:
-      address: "0xF6BF84E5df229029C9D36dC7ABaCDBE9c0bd7b4F"
+      address: "0x4BF0c7AD32Fd2d32089790a54485e23f5C7736C0"
       abi: LensHub
-      startBlock: 24665615
+      startBlock: 25803825
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -29,7 +29,7 @@ dataSources:
         - CommentCreated
       abis:
         - name: LensHub
-          file: LensHub/abis/LensHub.json
+          file: LensHub\abis\LensHub.json
       eventHandlers:
         - event: Followed(indexed address,uint256[],uint256)
           handler: handleFollowed
@@ -61,4 +61,4 @@ dataSources:
         - event: MirrorCreated(indexed uint256,indexed
             uint256,uint256,uint256,address,bytes,uint256)
           handler: handleMirrorCreated
-      file: LensHub/LensHub.wasm
+      file: LensHub\LensHub.wasm
