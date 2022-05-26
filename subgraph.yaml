@@ -29,7 +29,7 @@ dataSources:
         - CommentCreated
       abis:
         - name: LensHub
-          file: ./abis/LensHub.json
+          file: ./abis/LensHubAbi.json
       eventHandlers:
         - event: Followed(indexed address,uint256[],uint256)
           handler: handleFollowed
