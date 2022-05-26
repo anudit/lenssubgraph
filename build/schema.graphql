@@ -12,6 +12,7 @@ type Profile @entity {
   followModule: Bytes! # address
   followModuleReturnData: Bytes!
   dispatcher: Bytes!
+  posts: [Post!]! @derivedFrom(field: "profileId")
 }
 
 type Comment @entity {
