@@ -163,6 +163,15 @@ export class Profile extends Entity {
   set dispatcher(value: Bytes) {
     this.set("dispatcher", Value.fromBytes(value));
   }
+
+  get posts(): Array<string> {
+    let value = this.get("posts");
+    return value!.toStringArray();
+  }
+
+  set posts(value: Array<string>) {
+    this.set("posts", Value.fromStringArray(value));
+  }
 }
 
 export class Comment extends Entity {
